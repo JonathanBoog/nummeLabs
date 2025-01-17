@@ -1,0 +1,67 @@
+% Ladda data
+load STHLMTEMP
+
+% Ta ut en tusendel av data med steg
+step = 1000; % Stegstorlek för att ta var tusende datapunkt
+medelTemp = Tdm(1:step:end); % Reducerad medeltemperatur
+t = (1:step:length(Tdm))'; % Reducerad tidsvektor
+
+% Modell
+k = 2*pi/365; % Period för modellen
+T1 = @(c, t) c(1) + c(2)*sin(k*t) + c(3)*cos(k*t) + c(4)*sin(2*k*t) + c(5)*cos(2*k*t);
+
+% a)
+% Matrisen A
+A = [ones(size(t)) sin(k*t) cos(k*t) sin(2*k*t) cos(2*k*t)];
+
+% Lös det linjära systemet med minsta kvadratmetoden (Normalekvationerna)
+VL = A' * A;
+HL = A' * medelTemp;
+c = VL \ HL; % Lös för koefficienterna
+
+%Skriv ut koefficienterna
+fprintf("Koefficienterna: \n")
+for i = 1:length(c)
+    fprintf('c(%d) = %.4f\n', i, c(i));
+end
+
+% Temperaturerna enligt modellen
+Tnew = T1(c,t);
+
+%Plotta modell temperaturen mot faktisk data
+figure;
+plot(t,Tnew, 'b-'), hold on
+plot(t, medelTemp, '.') % Datapunkter
+legend('Modell', 'Datapunkter')
+xlabel('t (tid i dygn)')
+ylabel('T (Temperatur i grader)')
+title('1 a)')
+
+
+% b) Beräkna minsta kvadratsumman (norm(r)^2)
+
+r = Tnew - medelTemp; % Residualen
+minstaKvadratSum = norm(r)^2 %
+
+figure;
+plot(t, r)
+legend('Graf')
+xlabel('t (tid i dygn)')
+ylabel('r (Residualen)')
+title('1 b) temperatur skillnad mellan faktisk data och en modell')
+
+% c) Ny modell för temperatur
+k = 2*pi/365; % Period för modellen
+T2 = @(a,t) a(1) + a(2)*t + a(3)*t.^2 + a(4)*sin(kt) + a(5)*cos(kt) + a(6)*sin(2*k*t) + a(7)*cos(2*k*t);
+
+% Matris
+A = [ones(size(t)) t t.^2 sin(k*t) cos(k*t) sin(2*k*t) cos(2*k*t)];
+
+% Lös för koefficienterna a
+a = A\medelTemp;
+
+% Skriv ut koeffi
+fprintf("Koefficienterna: \n")
+for i = 1:length(c)
+    fprintf('a(%d) = %.4f\n', i, a(i));
+end
