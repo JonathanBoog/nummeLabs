@@ -1,3 +1,5 @@
+% Använder minsta kvadratmetoden
+
 % Ladda data
 load STHLMTEMP
 
@@ -14,9 +16,7 @@ T1 = @(c, t) c(1) + c(2)*sin(k*t) + c(3)*cos(k*t) + c(4)*sin(2*k*t) + c(5)*cos(2
 A = [ones(size(t)) sin(k*t) cos(k*t) sin(2*k*t) cos(2*k*t)];
 
 % Lös det linjära systemet med minsta kvadratmetoden (Normalekvationerna)
-VL = A' * A;
-HL = A' * medelTemp;
-c = VL \ HL; % Lös för koefficienterna
+c = A \ medelTemp; % Lös för koefficienterna
 
 %Skriv ut koefficienterna
 fprintf("Koefficienterna c: \n")
@@ -68,7 +68,7 @@ a = A\medelTemp;
 
 % Skriv ut koefficienterna
 fprintf("Koefficienterna a: \n")
-for i = 1:length(c)
+for i = 1:length(a)
     fprintf('a(%d) = %.4f\n', i, a(i));
 end
 
