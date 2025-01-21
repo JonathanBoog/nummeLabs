@@ -21,7 +21,7 @@ c = VL \ HL; % Lös för koefficienterna
 %Skriv ut koefficienterna
 fprintf("Koefficienterna c: \n")
 for i = 1:length(c)
-    fprintf('c(%d) = %.4f\n', i, c(i));
+    fprintf('c(%d) = %.8f\n', i, c(i));
 end
 
 % Temperaturerna enligt modellen
