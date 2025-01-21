@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 % a)
 % Data
 P1A = [175 950]; P1B = [160 1008];
@@ -122,11 +122,6 @@ ylabel('y');
 title('Fjärdegradspolynom genom interpolationspunkterna');
 grid on;
 
-% Koefficienterna blir
-
-
-
-
 
 %{
 %Plotta för att hitta gissningar till % a)
@@ -146,6 +141,5 @@ function h = circle(x,y,r)
     h = plot(xunit, yunit);
 end
 %}
-=======
-% HEJ
->>>>>>> 3088ee58794787aa224215bb39bef448662f1b1a
+
+
